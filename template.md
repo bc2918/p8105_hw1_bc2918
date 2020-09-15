@@ -39,13 +39,13 @@ Take the mean of each variable in my data frame.
 mean(pull(prob1_df, samp))
 ```
 
-    ## [1] -0.144157
+    ## [1] -0.1774616
 
 ``` r
 mean(pull(prob1_df, samp_gt_0))
 ```
 
-    ## [1] 0.5
+    ## [1] 0.3
 
 ``` r
 mean(pull(prob1_df, char_vec))
@@ -67,18 +67,20 @@ mean(pull(prob1_df, factor_vec))
 
 I can take the means of numbers and logical but not character or factor.
 
+Use `as.numeric` function to convert variables from one type to another.
+
 ``` r
 as.numeric(pull(prob1_df, samp))
 ```
 
-    ##  [1] -0.28739142  0.05484314  0.01851623  0.38239249 -1.22733769 -1.18325545
-    ##  [7]  0.41299899  0.58970548 -0.08909688 -0.11294493
+    ##  [1] -0.2317453  0.3494782  0.9851325 -0.6548249 -0.9190473 -0.1590957
+    ##  [7] -0.5250126  1.2307863 -1.2223231 -0.6279638
 
 ``` r
 as.numeric(pull(prob1_df, samp_gt_0))
 ```
 
-    ##  [1] 0 1 1 1 0 0 1 1 0 0
+    ##  [1] 0 1 1 0 0 0 0 1 0 0
 
 ``` r
 as.numeric(pull(prob1_df, char_vec))
@@ -93,5 +95,60 @@ as.numeric(pull(prob1_df, factor_vec))
 ```
 
     ##  [1] 2 2 2 3 3 3 3 1 1 1
+
+Convert the logical vector to numeric, and multiply the random sample by
+the result.
+
+``` r
+as.numeric(pull(prob1_df, samp_gt_0)) * pull(prob1_df, samp)
+```
+
+    ##  [1] 0.0000000 0.3494782 0.9851325 0.0000000 0.0000000 0.0000000 0.0000000
+    ##  [8] 1.2307863 0.0000000 0.0000000
+
+Convert the logical vector to a factor, and multiply the random sample
+by the result.
+
+``` r
+as.factor(pull(prob1_df, samp_gt_0)) * pull(prob1_df, samp)
+```
+
+    ## Warning in Ops.factor(as.factor(pull(prob1_df, samp_gt_0)), pull(prob1_df, : '*'
+    ## not meaningful for factors
+
+    ##  [1] NA NA NA NA NA NA NA NA NA NA
+
+Convert the logical vector to a factor and then convert the result to
+numeric, and multiply the random sample by the result
+
+``` r
+as.numeric(as.factor(pull(prob1_df, samp_gt_0))) * pull(prob1_df, samp)
+```
+
+    ##  [1] -0.2317453  0.6989565  1.9702651 -0.6548249 -0.9190473 -0.1590957
+    ##  [7] -0.5250126  2.4615725 -1.2223231 -0.6279638
+
+why not `$`
+
+``` r
+prob1_df$samp
+```
+
+    ##  [1] -0.2317453  0.3494782  0.9851325 -0.6548249 -0.9190473 -0.1590957
+    ##  [7] -0.5250126  1.2307863 -1.2223231 -0.6279638
+
+``` r
+pull(prob1_df, samp)
+```
+
+    ##  [1] -0.2317453  0.3494782  0.9851325 -0.6548249 -0.9190473 -0.1590957
+    ##  [7] -0.5250126  1.2307863 -1.2223231 -0.6279638
+
+``` r
+prob1_df[["samp"]]
+```
+
+    ##  [1] -0.2317453  0.3494782  0.9851325 -0.6548249 -0.9190473 -0.1590957
+    ##  [7] -0.5250126  1.2307863 -1.2223231 -0.6279638
 
 ## Problem 2
