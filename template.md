@@ -8,14 +8,14 @@ This is my solution to HW1.
 library(tidyverse)
 ```
 
-    ## ── Attaching packages ──────────────────────────────────────────────────────────────── tidyverse 1.3.0 ──
+    ## ── Attaching packages ──────────────────────────────────────────────────── tidyverse 1.3.0 ──
 
     ## ✓ ggplot2 3.3.2     ✓ purrr   0.3.4
     ## ✓ tibble  3.0.3     ✓ dplyr   1.0.2
     ## ✓ tidyr   1.1.2     ✓ stringr 1.4.0
     ## ✓ readr   1.3.1     ✓ forcats 0.5.0
 
-    ## ── Conflicts ─────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+    ## ── Conflicts ─────────────────────────────────────────────────────── tidyverse_conflicts() ──
     ## x dplyr::filter() masks stats::filter()
     ## x dplyr::lag()    masks stats::lag()
 
@@ -39,13 +39,13 @@ Take the mean of each variable in my data frame.
 mean(pull(prob1_df, samp))
 ```
 
-    ## [1] -0.1774616
+    ## [1] -0.09739341
 
 ``` r
 mean(pull(prob1_df, samp_gt_0))
 ```
 
-    ## [1] 0.3
+    ## [1] 0.5
 
 ``` r
 mean(pull(prob1_df, char_vec))
@@ -73,14 +73,14 @@ Use `as.numeric` function to convert variables from one type to another.
 as.numeric(pull(prob1_df, samp))
 ```
 
-    ##  [1] -0.2317453  0.3494782  0.9851325 -0.6548249 -0.9190473 -0.1590957
-    ##  [7] -0.5250126  1.2307863 -1.2223231 -0.6279638
+    ##  [1] -1.970008914 -0.008265302 -1.044531887  0.001412012  0.275316001
+    ##  [6] -0.261934764 -0.161218711  1.297526027  0.788471036  0.109300390
 
 ``` r
 as.numeric(pull(prob1_df, samp_gt_0))
 ```
 
-    ##  [1] 0 1 1 0 0 0 0 1 0 0
+    ##  [1] 0 0 0 1 1 0 0 1 1 1
 
 ``` r
 as.numeric(pull(prob1_df, char_vec))
@@ -103,8 +103,8 @@ the result.
 as.numeric(pull(prob1_df, samp_gt_0)) * pull(prob1_df, samp)
 ```
 
-    ##  [1] 0.0000000 0.3494782 0.9851325 0.0000000 0.0000000 0.0000000 0.0000000
-    ##  [8] 1.2307863 0.0000000 0.0000000
+    ##  [1] 0.000000000 0.000000000 0.000000000 0.001412012 0.275316001 0.000000000
+    ##  [7] 0.000000000 1.297526027 0.788471036 0.109300390
 
 Convert the logical vector to a factor, and multiply the random sample
 by the result.
@@ -125,8 +125,8 @@ numeric, and multiply the random sample by the result
 as.numeric(as.factor(pull(prob1_df, samp_gt_0))) * pull(prob1_df, samp)
 ```
 
-    ##  [1] -0.2317453  0.6989565  1.9702651 -0.6548249 -0.9190473 -0.1590957
-    ##  [7] -0.5250126  2.4615725 -1.2223231 -0.6279638
+    ##  [1] -1.970008914 -0.008265302 -1.044531887  0.002824023  0.550632003
+    ##  [6] -0.261934764 -0.161218711  2.595052054  1.576942072  0.218600779
 
 why not `$`
 
@@ -134,21 +134,64 @@ why not `$`
 prob1_df$samp
 ```
 
-    ##  [1] -0.2317453  0.3494782  0.9851325 -0.6548249 -0.9190473 -0.1590957
-    ##  [7] -0.5250126  1.2307863 -1.2223231 -0.6279638
+    ##  [1] -1.970008914 -0.008265302 -1.044531887  0.001412012  0.275316001
+    ##  [6] -0.261934764 -0.161218711  1.297526027  0.788471036  0.109300390
 
 ``` r
 pull(prob1_df, samp)
 ```
 
-    ##  [1] -0.2317453  0.3494782  0.9851325 -0.6548249 -0.9190473 -0.1590957
-    ##  [7] -0.5250126  1.2307863 -1.2223231 -0.6279638
+    ##  [1] -1.970008914 -0.008265302 -1.044531887  0.001412012  0.275316001
+    ##  [6] -0.261934764 -0.161218711  1.297526027  0.788471036  0.109300390
 
 ``` r
 prob1_df[["samp"]]
 ```
 
-    ##  [1] -0.2317453  0.3494782  0.9851325 -0.6548249 -0.9190473 -0.1590957
-    ##  [7] -0.5250126  1.2307863 -1.2223231 -0.6279638
+    ##  [1] -1.970008914 -0.008265302 -1.044531887  0.001412012  0.275316001
+    ##  [6] -0.261934764 -0.161218711  1.297526027  0.788471036  0.109300390
 
 ## Problem 2
+
+Use the code below to download the package containing the `penguins`
+dataset:
+
+``` r
+install.packages("palmerpenguins")
+```
+
+Load the data and take a look:
+
+``` r
+data("penguins", package = "palmerpenguins")
+head(penguins)
+```
+
+    ## # A tibble: 6 x 8
+    ##   species island bill_length_mm bill_depth_mm flipper_length_… body_mass_g sex  
+    ##   <fct>   <fct>           <dbl>         <dbl>            <int>       <int> <fct>
+    ## 1 Adelie  Torge…           39.1          18.7              181        3750 male 
+    ## 2 Adelie  Torge…           39.5          17.4              186        3800 fema…
+    ## 3 Adelie  Torge…           40.3          18                195        3250 fema…
+    ## 4 Adelie  Torge…           NA            NA                 NA          NA <NA> 
+    ## 5 Adelie  Torge…           36.7          19.3              193        3450 fema…
+    ## 6 Adelie  Torge…           39.3          20.6              190        3650 male 
+    ## # … with 1 more variable: year <int>
+
+Description: the `penguins` dataset includes the following variables:
+`species, island, bill_length_mm, bill_depth_mm, flipper_length_mm,
+body_mass_g, sex, year`; it has `344` rows and `8` columns. The mean of
+the flipper length is 200.9152047.
+
+Make a scatterplot of `flipper_length_mm`(y) vs `bill_length_mm` (x);
+color points using the `species` variable.
+
+``` r
+ggplot(na.omit(penguins), aes(x = bill_length_mm, y = flipper_length_mm, color = species)) + geom_point() + xlab("bill length (mm)") + ylab("flipper length (mm)")
+```
+
+![](template_files/figure-gfm/plot_and_save-1.png)<!-- -->
+
+``` r
+ggsave("scatter_plot.pdf", height = 4, width = 4)
+```
