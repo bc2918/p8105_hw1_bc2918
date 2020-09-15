@@ -86,7 +86,7 @@ head(penguins)
 ```
 
 Description: 
-the `penguins` dataset includes the following variables: ``r names(penguins)``; it has ``r nrow(penguins)`` rows and ``r ncol(penguins)`` columns. The mean of the flipper length is `r mean(na.omit(pull(penguins, flipper_length_mm)))`.
+the `penguins` dataset includes the following variables: ``r names(penguins)``; it has ``r nrow(penguins)`` rows and ``r ncol(penguins)`` columns. The mean of the flipper length is ``r mean(na.omit(pull(penguins, flipper_length_mm)))`` mm.
 
 Make a scatterplot of `flipper_length_mm `(y) vs `bill_length_mm` (x); color points using the `species` variable.
 
