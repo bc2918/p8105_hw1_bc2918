@@ -1,6 +1,7 @@
 ---
 title: "Homework 1"
 author: Beibei Cao
+date: September 15, 2020
 output: github_document
 ---
 
@@ -13,7 +14,7 @@ library(tidyverse)
 
 ## Problem 1
 
-Create a data frame with the specified elements. 
+#### Create a data frame
 
 ```{r}
 prob1_df = 
@@ -25,9 +26,9 @@ prob1_df =
   )
 ```
 
-Take the mean of each variable in my data frame.
+#### Take the mean of each variable
 
-```{r mean_pull_var}
+```{r collapse = TRUE}
 mean(pull(prob1_df, samp))
 mean(pull(prob1_df, samp_gt_0))
 mean(pull(prob1_df, char_vec))
@@ -37,32 +38,29 @@ mean(pull(prob1_df, factor_vec))
 I can take the means of numbers and logical but not character or factor.
 
 
-Use `as.numeric` function to convert variables from one type to another.
+#### Use `as.numeric` function to convert variables
 
-```{r try_numeric}
+```{r collapse = TRUE}
 as.numeric(pull(prob1_df, samp))
 as.numeric(pull(prob1_df, samp_gt_0))
 as.numeric(pull(prob1_df, char_vec))
 as.numeric(pull(prob1_df, factor_vec))
 ```
 
-Convert the logical vector to numeric, and multiply the random sample by the result.
-```{r logic_to_num}
+#### Convert variables
+```{r collapse = TRUE}
+# Convert the logical vector to numeric, and multiply the random sample by the result.
 as.numeric(pull(prob1_df, samp_gt_0)) * pull(prob1_df, samp)
-```
 
-Convert the logical vector to a factor, and multiply the random sample by the result.
-```{r logic_to_factor}
+# Convert the logical vector to a factor, and multiply the random sample by the result.
 as.factor(pull(prob1_df, samp_gt_0)) * pull(prob1_df, samp)
-```
 
-Convert the logical vector to a factor and then convert the result to numeric, and multiply the random sample by the result
-```{r ogic_to_factor_to_num}
+# Convert the logical vector to a factor and then convert the result to numeric, and multiply the random sample by the result
 as.numeric(as.factor(pull(prob1_df, samp_gt_0))) * pull(prob1_df, samp)
 ```
 
-why not `$`
-```{r}
+#### why not `$`
+```{r collapse = TRUE}
 prob1_df$samp
 
 pull(prob1_df, samp)
@@ -73,26 +71,27 @@ prob1_df[["samp"]]
 
 ## Problem 2
 
-Use the code below to download the package containing the `penguins` dataset:
+##### Use the code below to download the package containing the `penguins` dataset:
 
 ```{r eval = FALSE}
 install.packages("palmerpenguins")
 ```
 
-Load the data and take a look:
+##### Load the data and take a look:
 ```{r load_and_view}
 data("penguins", package = "palmerpenguins")
 head(penguins)
 ```
 
-Description: 
-the `penguins` dataset includes the following variables: ``r names(penguins)``; it has ``r nrow(penguins)`` rows and ``r ncol(penguins)`` columns. The mean of the flipper length is ``r mean(na.omit(pull(penguins, flipper_length_mm)))`` mm.
+##### Description: 
+The `penguins` data set includes the following variables: ``r names(penguins)``; the species include ``r levels(factor(pull(penguins, species)))``; the data set has ``r nrow(penguins)`` rows and ``r ncol(penguins)`` columns. The mean of the flipper length is ``r mean(na.omit(pull(penguins, flipper_length_mm)))`` mm.
 
-Make a scatterplot of `flipper_length_mm `(y) vs `bill_length_mm` (x); color points using the `species` variable.
+##### Make a scatterplot of `flipper_length_mm `(y) vs `bill_length_mm` (x); color points using the `species` variable.
 
 ```{r plot_and_save}
-ggplot(na.omit(penguins), aes(x = bill_length_mm, y = flipper_length_mm, color = species)) + geom_point() + xlab("bill length (mm)") + ylab("flipper length (mm)")
+ggplot(na.omit(penguins), aes(x = bill_length_mm, y = flipper_length_mm, color = species, )) + geom_point() + xlab("bill length (mm)") + ylab("flipper length (mm)") + ggtitle("Flipper length v.s. Bill length") + theme(plot.title = element_text(hjust = 0.5))
 
+# save the plot as pdf
 ggsave("scatter_plot.pdf", height = 4, width = 4)
 ```
 
