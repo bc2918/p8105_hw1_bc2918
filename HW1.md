@@ -38,7 +38,7 @@ prob1_df =
 
 ``` r
 mean(pull(prob1_df, samp))
-## [1] -0.07518478
+## [1] 0.08723967
 mean(pull(prob1_df, samp_gt_0))
 ## [1] 0.6
 mean(pull(prob1_df, char_vec))
@@ -57,10 +57,10 @@ I can take the means of numbers and logical but not character or factor.
 
 ``` r
 as.numeric(pull(prob1_df, samp))
-##  [1] -0.8566581  1.1620176  0.4099954 -1.5291904  0.3302032  1.0816822
-##  [7] -1.0585672  0.2710397  0.4074553 -0.9698255
+##  [1] -0.23803787 -0.41075890  1.82953933  0.19176967 -1.00848666  0.02544328
+##  [7]  0.06374654 -0.35756201  0.72279080  0.05395254
 as.numeric(pull(prob1_df, samp_gt_0))
-##  [1] 0 1 1 0 1 1 0 1 1 0
+##  [1] 0 0 1 1 0 1 1 0 1 1
 as.numeric(pull(prob1_df, char_vec))
 ## Warning: NAs introduced by coercion
 ##  [1] NA NA NA NA NA NA NA NA NA NA
@@ -73,8 +73,8 @@ as.numeric(pull(prob1_df, factor_vec))
 ``` r
 # Convert the logical vector to numeric, and multiply the random sample by the result.
 as.numeric(pull(prob1_df, samp_gt_0)) * pull(prob1_df, samp)
-##  [1] 0.0000000 1.1620176 0.4099954 0.0000000 0.3302032 1.0816822 0.0000000
-##  [8] 0.2710397 0.4074553 0.0000000
+##  [1] 0.00000000 0.00000000 1.82953933 0.19176967 0.00000000 0.02544328
+##  [7] 0.06374654 0.00000000 0.72279080 0.05395254
 
 # Convert the logical vector to a factor, and multiply the random sample by the result.
 as.factor(pull(prob1_df, samp_gt_0)) * pull(prob1_df, samp)
@@ -84,35 +84,35 @@ as.factor(pull(prob1_df, samp_gt_0)) * pull(prob1_df, samp)
 
 # Convert the logical vector to a factor and then convert the result to numeric, and multiply the random sample by the result
 as.numeric(as.factor(pull(prob1_df, samp_gt_0))) * pull(prob1_df, samp)
-##  [1] -0.8566581  2.3240351  0.8199907 -1.5291904  0.6604065  2.1633644
-##  [7] -1.0585672  0.5420795  0.8149106 -0.9698255
+##  [1] -0.23803787 -0.41075890  3.65907866  0.38353934 -1.00848666  0.05088655
+##  [7]  0.12749308 -0.35756201  1.44558160  0.10790508
 ```
 
 #### why not `$`
 
 ``` r
 prob1_df$samp
-##  [1] -0.8566581  1.1620176  0.4099954 -1.5291904  0.3302032  1.0816822
-##  [7] -1.0585672  0.2710397  0.4074553 -0.9698255
+##  [1] -0.23803787 -0.41075890  1.82953933  0.19176967 -1.00848666  0.02544328
+##  [7]  0.06374654 -0.35756201  0.72279080  0.05395254
 
 pull(prob1_df, samp)
-##  [1] -0.8566581  1.1620176  0.4099954 -1.5291904  0.3302032  1.0816822
-##  [7] -1.0585672  0.2710397  0.4074553 -0.9698255
+##  [1] -0.23803787 -0.41075890  1.82953933  0.19176967 -1.00848666  0.02544328
+##  [7]  0.06374654 -0.35756201  0.72279080  0.05395254
 
 prob1_df[["samp"]]
-##  [1] -0.8566581  1.1620176  0.4099954 -1.5291904  0.3302032  1.0816822
-##  [7] -1.0585672  0.2710397  0.4074553 -0.9698255
+##  [1] -0.23803787 -0.41075890  1.82953933  0.19176967 -1.00848666  0.02544328
+##  [7]  0.06374654 -0.35756201  0.72279080  0.05395254
 ```
 
 ## Problem 2
 
-##### Use the code below to download the package containing the `penguins` dataset:
+#### Use the code below to download the package containing the `penguins` dataset:
 
 ``` r
 install.packages("palmerpenguins")
 ```
 
-##### Load the data and take a look:
+#### Load the data and take a look:
 
 ``` r
 data("penguins", package = "palmerpenguins")
@@ -130,7 +130,7 @@ head(penguins)
     ## 6 Adelie  Torge…           39.3          20.6              190        3650 male 
     ## # … with 1 more variable: year <int>
 
-##### Description:
+#### Description:
 
 The `penguins` data set includes the following variables: `species,
 island, bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g,
@@ -138,7 +138,7 @@ sex, year`; the species include `Adelie, Chinstrap, Gentoo`; the data
 set has `344` rows and `8` columns. The mean of the flipper length is
 `200.9152047` mm.
 
-##### Make a scatterplot of `flipper_length_mm`(y) vs `bill_length_mm` (x); color points using the `species` variable.
+#### Make a scatterplot of `flipper_length_mm`(y) vs `bill_length_mm` (x); color points using the `species` variable.
 
 ``` r
 ggplot(na.omit(penguins), aes(x = bill_length_mm, y = flipper_length_mm, color = species, )) + geom_point() + xlab("bill length (mm)") + ylab("flipper length (mm)") + ggtitle("Flipper length v.s. Bill length") + theme(plot.title = element_text(hjust = 0.5))

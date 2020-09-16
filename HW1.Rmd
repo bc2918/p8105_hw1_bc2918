@@ -71,22 +71,22 @@ prob1_df[["samp"]]
 
 ## Problem 2
 
-##### Use the code below to download the package containing the `penguins` dataset:
+#### Use the code below to download the package containing the `penguins` dataset:
 
 ```{r eval = FALSE}
 install.packages("palmerpenguins")
 ```
 
-##### Load the data and take a look:
+#### Load the data and take a look:
 ```{r load_and_view}
 data("penguins", package = "palmerpenguins")
 head(penguins)
 ```
 
-##### Description: 
+#### Description: 
 The `penguins` data set includes the following variables: ``r names(penguins)``; the species include ``r levels(factor(pull(penguins, species)))``; the data set has ``r nrow(penguins)`` rows and ``r ncol(penguins)`` columns. The mean of the flipper length is ``r mean(na.omit(pull(penguins, flipper_length_mm)))`` mm.
 
-##### Make a scatterplot of `flipper_length_mm `(y) vs `bill_length_mm` (x); color points using the `species` variable.
+#### Make a scatterplot of `flipper_length_mm `(y) vs `bill_length_mm` (x); color points using the `species` variable.
 
 ```{r plot_and_save}
 ggplot(na.omit(penguins), aes(x = bill_length_mm, y = flipper_length_mm, color = species, )) + geom_point() + xlab("bill length (mm)") + ylab("flipper length (mm)") + ggtitle("Flipper length v.s. Bill length") + theme(plot.title = element_text(hjust = 0.5))
